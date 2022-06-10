@@ -1,0 +1,1 @@
+declare module 'js_mt_rand';

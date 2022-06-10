@@ -1,0 +1,23 @@
+{
+  "name": "khoros_libery",
+  "version": "1.0.0",
+  "description": "Implement session store for express using redis",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Romeros",
+  "license": "ISC",
+  "dependencies": {
+    "-": "^0.0.1",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "js_mt_rand": "^2.1.0",
+    "locutus": "^2.0.16",
+    "node-gzip": "^1.1.2",
+    "nodemon": "^2.0.6",
+    "php": "^1.0.2",
+    "sprintf-js": "^1.1.2"
+  }
+}
