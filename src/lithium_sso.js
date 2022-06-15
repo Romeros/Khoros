@@ -54,11 +54,11 @@
  * });
  *
  */
-const {gzip} = require('node-gzip');
 const sprintf = require('sprintf-js').sprintf;
 const JSMTRand = require('js_mt_rand');
 const number_format = require('locutus/php/strings/number_format');
 const crypto = require('crypto');
+const zlib = require('zlib');
 
 class lithium_sso {
 	
@@ -203,20 +203,16 @@ class lithium_sso {
 	 */
 	async encode(string, key) {
 		let encoded = string;
-
-		// gzip
-		encoded = await gzip(encoded);
-
-		// AES
+		encoded = zlib.deflateSync(encoded);
+  		// AES
 		let iv = this.get_random_iv(16);
 		encoded = this.openssl_encrypt(encoded, `AES-${key.length * 8}-CBC`, key, iv);
 		// URL Base64
-		encoded = Buffer.from(encoded).toString('base64'); 
-		encoded = encoded.replace('+', '-').replace('/', '_').replace('=', '.');
-
+		encoded = encoded.replaceAll('+', '-').replaceAll('/', '_').replaceAll('=', '.');
+  
 		// Version and IV Prefix
 		encoded = `~2${iv}~${encoded}`;
-		
+		  
 		return encoded;
 	}
 
@@ -304,16 +300,16 @@ class lithium_sso {
 		return str;
 	}
 
-	openssl_encrypt(encoded, AES_METHOD, key, iv){
+openssl_encrypt(encoded, AES_METHOD, key, iv){
 
     if (process.versions.openssl <= '1.0.1f') {
         throw new Error('OpenSSL Version too old, vulnerability to Heartbleed');
     }
     let cipher = crypto.createCipheriv(AES_METHOD, key, iv);
-    let encrypted = cipher.update(encoded);
-    encrypted = Buffer.concat([encrypted, cipher.final()]);
+    let encrypted = cipher.update(encoded, 'utf8', 'base64');
+	encrypted += cipher.final('base64');
 
-    return `${iv.toString('hex')}:${encrypted.toString('hex')}`;
+    return encrypted;
 	}
 }
 module.exports = lithium_sso;

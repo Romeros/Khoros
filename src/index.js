@@ -1,7 +1,6 @@
 const express = require('express');
 var bodyParser = require('body-parser');
 const lithium_sso = require("./lithium_sso");
-var fs = require('fs');
 
 const app = express();
 
