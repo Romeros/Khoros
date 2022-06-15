@@ -11,11 +11,10 @@ app.use(bodyParser.json());
 app.get("/", (req, res) => {
     try{
     const sso_key = "9DEA5AF94ADCE2BFDE03C3A267555185F7E59FFEAD2B334E0FF1F5193DAF63F4",
-    //const sso_key = fs.readFileSync('Cine_sso.cookie.key'),
     HTTP_USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36",
-    HTTP_REFERER = "https://alphauniverse.com";
-    REMOTE_ADDR = "192.168.1.5",
-    SERVER_ID = "",
+    HTTP_REFERER = " ";
+    REMOTE_ADDR = "127.0.0.1",
+    SERVER_ID = "127.0.0.1",
     client_id = "nwqwi37788.stage",
     client_domain = ".alphauniverse.com",
 
@@ -27,7 +26,7 @@ app.get("/", (req, res) => {
         "profile.name_last" : "Curie",
       };
 
-    const lithium = new lithium_sso(client_id, client_domain, sso_key, SERVER_ID, HTTP_USER_AGENT,  HTTP_REFERER, REMOTE_ADDR);
+    const lithium = new lithium_sso(client_id, client_domain, sso_key, SERVER_ID, HTTP_USER_AGENT, HTTP_REFERER, REMOTE_ADDR);
 /*
     // unique id
     let uniqueId = "167865";

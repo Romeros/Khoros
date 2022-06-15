@@ -100,7 +100,7 @@ class lithium_sso {
 			throw new Error("SSO key must be 128-bit or 256-bit in length");
 		}
 		
-		this.tsid = Date.now() * 1000;
+		this.tsid = Date.now();
 	}
 	
 	/**
@@ -168,7 +168,7 @@ class lithium_sso {
 		raw_string += this.lithium_separator;
 		raw_string += number_format( this.tsid, 0, '', '' );
 		raw_string += this.lithium_separator;
-		raw_string += Date.now() + "000";
+		raw_string += Date.now();
 		raw_string += this.lithium_separator;
 		raw_string += this.get_token_safe_string(req_user_agent);
 		raw_string += this.lithium_separator;
@@ -202,6 +202,7 @@ class lithium_sso {
 	 * @return string the encoded string
 	 */
 	async encode(string, key) {
+
 		let encoded = string;
 		encoded = zlib.deflateSync(encoded);
   		// AES
